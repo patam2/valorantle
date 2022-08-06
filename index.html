@@ -3,8 +3,8 @@
     <head>
         <script src="bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/underscore@1.13.4/underscore-umd-min.js"></script>
-        <script src="www.js?version=3"></script>
-        <link rel="stylesheet" href="main.css">
+        <script src="www.js?version=6"></script>
+        <link rel="stylesheet" href="main.css?9">
         <link rel="icon" href="assets/valorantle_icon.png">
         <title>Valorantle - Guess the pro Valorant player!</title>
 
@@ -12,25 +12,32 @@
         <meta name="description" content="A wordle-inspired game to guess a Valorant pro player once a day.">
     </head>
     <body onload="ready()">
+
+        <div class="header">
+            <div onclick="helpToggle()" id="help" class="text-white big">?</div>
+            <h2 style="margin-bottom: 0;" class="bigV text-red">Valorantle</h2>
+            <div id="timer" class="text-white big">1/8</div>
+        </div>    
         <textarea id="result" name="hide" style="display: none"></textarea>
-        <div class="container-fluid text-white">
-            <h2 class="text-red header">Valorantle</h2>
+        <div class="container text-white">
+            <div style="font-size: 50%; margin-bottom: 4px;">Copenhagen teams + FaZe, 100T, Gambit, Liquid, G2, Sentinels w/o Shroud!</div>
             <div class="d-flex align-items-center mt-auto">
-                <div class="text-white">Player name:&nbsp;</div>
+                <div id="playername">
+                    <span class="lg-view">Player name:&nbsp;</span>
+                    <span class="sm-view">Name:&nbsp;</span>
+                </div>
                 <input class=" rounded mr-0" id="name">
                 <button class=" ml-0 rounded" id="submit" onclick="play()">></button>
-                <div id="timer" class=" ms-auto text-end">1/8</div>
             </div>
-            <div id="suggestions">
-            </div>
+            <div style="display: inline" id="suggestions"></div>
             <hr style="border-top: 8px solid #bbb; border-radius: 5px;">
             <table>
                 <thead class="text-red">
                     <th title="Player IGN. If green then you got it all correct.">Name</th>
-                    <th title="Country the player is from. Can be different from the country of current residence. If yellow, then the answer player plays in the same region as the guessed one.">Nationality</th>
+                    <th title="Country the player is from. Can be different from the country of current residence. If yellow, then the answer player plays in the same region as the guessed one.">Country</th>
                     <th title="Where the player plays on. If green then you got the correct team.">Team</th>
-                    <th title="Most commonly played agents. Sorted by the order of most played. If the agent has a yellow border, then the answer player plays the same agent but not as often. If the agent has a green border, then the answer player plays the same agent the same frequency.">Common agents</th>
-                    <th title="If the player is an IGL or not. If green border, then the answer player has the same IGL status as guessed one. If ">(Known) IGL?</th>
+                    <th title="Most commonly played agents. Sorted by the order of most played. If the agent has a yellow border, then the answer player plays the same agent but not as often. If the agent has a green border, then the answer player plays the same agent the same frequency.">Agents</th>
+                    <th title="If the player is an IGL or not. If green border, then the answer player has the same IGL status as guessed one. ">IGL?</th>
                 </thead>
                 <tbody id="data" class="mt-auto">
                     <td></td>
@@ -49,6 +56,36 @@
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" id="copy" data-bs-dismiss="modal" class="btn text-white bg-red" onclick="copy_result()">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="howToPlayLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="text-black" id="howToPlayLabel">Valorantle explanation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-black">
+                            <div>
+                                    Guess a Valorant player. And see where the clues lead you.
+                                <p>
+                                    The player you enter will be inserted to the table, and all items will be color coded according to their accuracy compared to the correct answer.
+                                </p>
+                                <b>Table header explanations:</b><br>
+                                    <strong>Country</strong> - Country the player is from. Can be different from the country of current residence. If <span class='yellow'>yellow</span>, then the answer player plays in the same region as the guessed one.
+                                <br>
+                                <strong>Team</strong> - Where the player plays on. If <span class='green'>green</span> then you got the correct team.
+                                <br>
+                                <strong>Agents</strong> - Most commonly played agents. Sorted by the order of most played. If the agent has a <span class='border-yellow'>yellow border</span>, then the answer player plays the same agent but not at the same frequency. If the agent has a <span class='border-green'>green border</span>, then the answer player plays the same agent the same frequency.
+                                <br>
+                                <strong>IGL</strong> - If the player is an IGL or not. If <span class='border-green'>green border</span>, then the answer player has the same IGL status as guessed one.
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>

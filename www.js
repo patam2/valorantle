@@ -2,9 +2,10 @@ var players
 var answer
 var day
 var input
+var answered = false
 
 fetch("player_data.json")
-    .then(response => response.json()).then(resp => {players=resp.players; answer= players[resp.answer]; day =resp.day})
+    .then(response => response.json()).then(resp => {players=resp.players; answer= players[resp.answer]; day =resp.day}).then(_ =>{document.getElementsByClassName('bigV')[0].innerHTML += ` #${day}`})
 
 
 var guesses = []
@@ -13,8 +14,19 @@ function clear_suggestions() {
     document.getElementById('suggestions').innerHTML = ''
 }
 
+function helpToggle() {
+    var modal = new bootstrap.Modal(document.getElementById('howToPlay'))
+    modal.show()
+}
+
 function ready() {
-    input = document.getElementById('name')
+    var sheet = window.document.styleSheets[0];
+    width = document.getElementById('playername').offsetWidth;
+    console.log(width)
+    sheet.insertRule(`.item {margin-left: ${width}px !important;}`, sheet.cssRules.length)
+    sheet.insertRule(`.suggestions {width: calc(100%-${width}px);}`, sheet.cssRules.length)
+    
+    input = document.getElementById('name');
     input.addEventListener("keyup", function(event) {
         let curr = 0
         if (input.value.length == 0) {
@@ -34,6 +46,7 @@ function ready() {
                     let name = players[key][0]
                     input.value = name
                     clear_suggestions()
+                    play()
                 })
             }
         } 
@@ -95,16 +108,16 @@ function play() {
         player[4].map(
             function (agent, i) {
                 if (answer[4][i] == agent) {
-                    html += `<img class="rounded border-green" src="assets/${agent}_icon.png">`
+                    html += `<img class=" border-green" src="assets/${agent}_icon.png">`
                     guesss.push(129001)
                 }
                 else if (answer[4].includes(agent)) {
-                    html += `<img class="rounded border-yellow" src="assets/${agent}_icon.png">`
+                    html += `<img class=" border-yellow" src="assets/${agent}_icon.png">`
                     guesss.push(0x1F7E8)
                 }
                 else {
                     console.log('Unique agents')
-                    html += `<img class="border-4 rounded" src="assets/${agent}_icon.png">`
+                    html += `<img class="border-4 " src="assets/${agent}_icon.png">`
                     guesss.push(0x1F7E5)
                 }
             }
@@ -139,6 +152,9 @@ function play() {
         document.getElementById('timer').innerHTML = `${guesses.length}/8`
 
         if (player == answer | guesses.length == 8) {
+            if (player == answer) {
+                answered = true
+            }
             document.getElementById('name').disabled = true
             document.getElementById('submit').disabled = true
             if (guesses.length == 8 && player != answer){
@@ -154,5 +170,5 @@ function play() {
 }
 
 function copy_result() {
-    navigator.clipboard.writeText(`Valorantle #${day} ${guesses.length}/8\n\n` + guesses.join('\n') + '\n\nhttps://valorantle.melro5e.com')
+    navigator.clipboard.writeText(`Valorantle #${day} ${answered ? guesses.length: '*'}/8\n\n` + guesses.join('\n') + '\n\nhttps://valorantle.melro5e.com')
 }
