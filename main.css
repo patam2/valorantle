@@ -1,20 +1,52 @@
 @charset "UTF-8";
 body {
   background-color: #343a40 !important;
+  margin: 8px;
+}
+
+.container {
   margin: 40px auto !important;
-  max-width: 650px !important;
   font-size: 125% !important;
+  max-width: 650px !important;
+}
+
+#submit {
+  height: 100%;
+  -webkit-appearance: none
+}
+
+#timer {
+  float: right;
+}
+
+.big {
+  font-size: 200%;
+}
+
+#help {
+  cursor: pointer;
+}
+
+.header {
+  margin: -8px;
+  margin-top: -12px !important;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: calc(100% + 16px);
+  background-color: black;
+  position: sticky;
+  z-index:100;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #suggestions {
   position: relative;
-  display: inline-block;
-  left: 120px;
-  width: calc(100% - 120px);
 }
 
 .item {
-  width: 100%;
   padding-left: 5px;
 }
 
@@ -31,8 +63,10 @@ body {
 }
 
 
-
-.header::first-letter {
+.bigV {
+  align-self:flex-end;
+}
+.bigV::first-letter {
   font-size: 200%;
 }
 
@@ -45,16 +79,20 @@ table {
 .green {
   background-color: green;
   border-radius: 5px;
+  color: white
 }
 
 
 .yellow {
   background-color: #eed202;
   border-radius: 5px;
+  color: white;
 }
 
 .bg-red {
   background-color: #dc3545 !important;
+  color: white !important;
+
 }
 
 .text-red {
@@ -63,14 +101,21 @@ table {
 
 .border-green {
   border: 4px solid green;
+  border-radius: 5px;
+  vertical-align: middle;
 }
 
 .border-yellow {
   border: 4px solid #eed202;
+  border-radius: 5px;
+  vertical-align: middle;
+
 }
 
 .border-4 {
   border: 4px solid white;
+  border-radius: 5px;
+  vertical-align: middle;
 }
 
 @keyframes append-animate {
@@ -84,6 +129,24 @@ table {
 	}
 }
 
+
+.lg-view{
+  display:inline-block;
+}
+
+.sm-view{
+  display:none;
+}
+
+@media screen and (max-width: 500px) {
+   .lg-view{
+      display:none;
+   }
+
+   .sm-view{
+      display:inline-block;
+   }
+}
 
 .box {
   animation: append-animate .3s linear;
@@ -171,7 +234,6 @@ table {
 }
 
 body {
-  margin: 0;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
@@ -266,9 +328,6 @@ button {
 
 button,
 [type=button],
-[type=submit] {
-  -webkit-appearance: button;
-}
 button:not(:disabled),
 [type=button]:not(:disabled),
 [type=submit]:not(:disabled) {
