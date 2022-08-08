@@ -76,7 +76,7 @@ function play() {
         } 
         else {
             html = `<tr class="box"><td class="">${player[0]}</td>`
-            guesss.push(0x1F7E5)
+            guesss.push(0x2B1B)
         } 
 
         guesss.push(32)
@@ -91,7 +91,7 @@ function play() {
         }
         else {
             html += `<td class="">${player[1]}</td>`
-            guesss.push(0x1F7E5)
+            guesss.push(0x2B1B)
         }
 
         if (player[3] == answer[3]) {
@@ -100,7 +100,7 @@ function play() {
         } 
         else { 
             html += `<td class="">${player[3]}</td><td>`
-            guesss.push(0x1F7E5)
+            guesss.push(0x2B1B)
         }
 
         guesss.push(32)
@@ -118,7 +118,7 @@ function play() {
                 else {
                     console.log('Unique agents')
                     html += `<img class="border-4 " src="assets/${agent}_icon.png">`
-                    guesss.push(0x1F7E5)
+                    guesss.push(0x2B1B)
                 }
             }
         )
@@ -138,11 +138,11 @@ function play() {
         else {
             if (player[5]) {
                 html += `<td class="">Is IGL</td>`
-                guesss.push(0x1F7E5)
+                guesss.push(0x2B1B)
             }
             else {
                 html += `<td class="">Not IGL</td>`
-                guesss.push(0x1F7E5)
+                guesss.push(0x2B1B)
             }
         }
         html += "</tr>"
